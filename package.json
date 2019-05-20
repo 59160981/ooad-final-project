@@ -1,0 +1,22 @@
+{
+  "name": "expressdemo",
+  "version": "1.0.0",
+  "description": "[SB Admin 2](https://startbootstrap.com/template-overviews/sb-admin-2/) is an open source admin dashboard theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/).",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "bulma": "^0.7.4",
+    "ejs": "^2.6.1",
+    "express": "^4.17.0",
+    "mongoose": "^5.4.19",
+    "startbootstrap-sb-admin-2": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
