@@ -70,7 +70,7 @@
                     <img src="/img/icon1.png" width="15" height="15" class="logo" alt="">
                     <span>จัดการรายวิชาที่เปิดสอน</span></a>
             </li>
-            
+
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -116,7 +116,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="/home/examiner">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="/img/icon9.png" width="15" height="15" class="logo" alt="">
                     <span>ผู้คุมสอบ</span></a>
@@ -214,7 +214,7 @@
                                         <% for(var i=0; i < room.roomID.length ; i++) { %>
                                         <tr>
                                             <td style="text-align: center">
-                                                <input name="roomID" class="input" type="text"
+                                                <input name="roomID" class="input" type="text" onkeyup="checkRoomID()"
                                                     placeholder="<%= room.roomID[i] %>" style="width:70%"
                                                     value="<%= room.roomID[i] %>"><span name="txtroomID"
                                                     style="color: red"></span>
@@ -245,9 +245,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
-
-
 
                             <p>
                                 <button type="button" onclick="checkValue()" class="button is-success"
@@ -315,6 +312,7 @@
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
     <script src="/js/myScript/checkEditRoom.js"></script>
+
 
     <!-- Page level plugins -->
     <script src="/vendor/datatables/jquery.dataTables.min.js"></script>

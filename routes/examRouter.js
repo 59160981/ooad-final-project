@@ -58,7 +58,6 @@ Router.route('/create').post(function (req, res) {
                     timein: req.body.timein,
                     timeout: req.body.timeout,
                     room: req.body.room,
-                    examiner: [],
                     student: course.subject_student
                 })
                 course.save()
@@ -68,15 +67,24 @@ Router.route('/create').post(function (req, res) {
     }
 })
 
+
 Router.route('/delete').post(function (req, res) {
     if (userLogin == "") {
         res.redirect('/home')
     } else {
-        const type = req.body.deleteRoom
+        const roomID = req.body.deleteRoom
         Term.findOne(function (err, term) {
             Course.findById(courseID, function (err, course) {
                 for (let i = 0; i < course.exam.length; i++) {
                     if (course.exam[i].type == roomID) {
+                        for (let j = 0; j < course.exam[i].examiner.length; j++) {
+                            User.findById(course.exam[i].examiner[j],function(err,user){
+                                if (user.examiner[i] == course._id) {
+                                    user.examiner.splice(i, 1)
+                                    user.save()
+                                }
+                            })
+                        }
                         course.exam.splice(i, 1)
                         course.save()
                     }
@@ -87,7 +95,7 @@ Router.route('/delete').post(function (req, res) {
     }
 })
 
-type=""
+type = ""
 index = 0
 Router.route('/addExaminer/:type').get(function (req, res) {
     if (userLogin == "") {
@@ -127,15 +135,19 @@ Router.route('/addExaminer').post(function (req, res) {
     } else {
         var addUser = req.body.addUser
         var sum = 0
+
         Course.findById(courseID, function (err, course) {
             for (let i = 0; i < course.exam[index].examiner.length; i++) {
                 if (addUser == course.exam[index].examiner[i]) {
                     sum++
-                    console.log(course.exam[index])
                 }
             }
             if (sum == 0) {
                 course.exam[index].examiner.push(addUser)
+                User.findById(addUser, function (err, user) {
+                    user.examiner.push(course._id)
+                    user.save()
+                })
                 course.save()
             }
         })
@@ -154,6 +166,14 @@ Router.route('/deleteExaminer').post(function (req, res) {
                     course.exam[index].examiner.splice(i, 1)
                 }
             }
+            User.findById(userid, function (err, user) {
+                for (let i = 0; i < user.examiner.length ; i++) {
+                    if (user.examiner[i] == course._id) {
+                        user.examiner.splice(i, 1)
+                        user.save()
+                    }
+                }
+            })
             course.save()
             res.redirect('addExaminer/${type}')
         })

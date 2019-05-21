@@ -22,7 +22,9 @@ const termRouter = require('./routes/termRouter')
 const courseRouter = require('./routes/courseRouter')
 const subjectRouter = require('./routes/subjectRouter')
 const examRouter = require('./routes/examRouter')
-    //router
+const studentRouter = require('./routes/studentRouter')
+const examinerRouter = require('./routes/examimerRouter')
+//router
 app.use('/home', loginRouter)
 app.use('/home/users', userRouter)
 app.use('/home/build', buildRouter)
@@ -31,6 +33,8 @@ app.use('/home/term', termRouter)
 app.use('/home/course', courseRouter)
 app.use('/home/subject', subjectRouter)
 app.use('/home/exam', examRouter)
+app.use('/home/student', studentRouter)
+app.use('/home/examiner', examinerRouter)
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'public', '/home/index'));

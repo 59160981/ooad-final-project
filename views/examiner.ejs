@@ -10,14 +10,13 @@
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
 
-    <title>แก้ไขข้อมูลตึก</title>
+    <title>ตารางผู้คุมสอบ</title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
 
     <!-- Custom styles for this template -->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
@@ -56,7 +55,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="/home/course">
+                <a class="nav-link" href="/home/course" >
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="/img/icon1.png" width="15" height="15" class="logo" alt="">
                     <span>จัดการคอร์สเรียน</span></a>
@@ -86,7 +85,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="/home/build" style="background-color: rgb(153, 153, 150)">
+                <a class="nav-link" href="/home/build">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="/img/icon6.png" width="15" height="15" class="logo" alt="">
                     <span>จัดการตึก</span></a>
@@ -116,7 +115,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="/home/examiner">
+                <a class="nav-link" href="/home/examiner" style="background-color: rgb(153, 153, 150)">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="/img/icon9.png" width="15" height="15" class="logo" alt="">
                     <span>ผู้คุมสอบ</span></a>
@@ -154,7 +153,7 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <div class="dropdown-item"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/home" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> ออกจากระบบ
                                 </a>
                             </div>
@@ -173,64 +172,87 @@
                         <div class="">
 
                             <!-- </div> -->
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <p style="margin-top: 0.5vw;">
-                                        <label class="label">รหัสตึก :</label>
-                                    </p>
 
-                                    <p style="margin-top: 0.5vw;">
-                                        <label class="label">ชื่อตึก :</label>
-                                    </p>
-                                </div>
-
-                                <div class="field-body">
-                                    <div class="field">
-                                        <form id="editBuild" method="POST" action="/home/build/edit/<%= build._id %>">
-                                            <p class="control">
-                                                <input name="buildID" class="input" type="text"
-                                                    placeholder="<%= build.buildID %>" style="width:50%"
-                                                    value="<%= build.buildID %>">
-                                                <span id="txtbuildID" style="color: red"></span>
-                                            </p>
-
-                                            <p class="control">
-                                                <input name="name" class="input" type="text"
-                                                    placeholder="<%= build.name %>" style="width:50%"
-                                                    value="<%= build.name %>">
-                                                <span id="txtbuildName" style="color: red"></span>
-                                            </p>
-
-                                            <p>
-                                                <button type="button" onclick="checkValue()" class="button is-success"
-                                                    style="margin-top: 1.5vw; margin-left: 23vw; color: white;">แก้ไขข้อมูลตึก</button>
-                                            </p>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; 2562 Object-Oriented Analysis and Design.</span>
+                <!-- test table -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">ตารางผู้คุมสอบ</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">รหัสวิชา</th>
+                                        <th style="text-align: center;">ชื่อวิชา</th>
+                                        <th style="text-align: center;">กลุ่ม</th>
+                                        <th style="text-align: center;">ห้องสอบ</th>
+                                        <th style="text-align: center;">วันที่</th>
+                                        <th style="text-align: center;">เวลา</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th style="text-align: center;">รหัสวิชา</th>
+                                        <th style="text-align: center;">ชื่อวิชา</th>
+                                        <th style="text-align: center;">กลุ่ม</th>
+                                        <th style="text-align: center;">ห้องสอบ</th>
+                                        <th style="text-align: center;">วันที่</th>
+                                        <th style="text-align: center;">เวลา</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <% for(var i=0; i < course.length; i++) { %>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <%= course[i].subject_id %>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <%= course[i].subject_EngName %><br>
+                                            <%= course[i].subject_ThName %>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <%= course[i].group %>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <%= course[i].room %>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <%= course[i].date %>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <%= course[i].timein %> - <%= course[i].timeout %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
+            </div>
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; 2562 Object-Oriented Analysis and Design.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -269,7 +291,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
-    <script src="/js/myScript/checkEditBuild.js"></script>
+    <script src="/js/myScript/checkAddCourse.js"></script>
 
     <!-- Page level plugins -->
     <script src="/vendor/datatables/jquery.dataTables.min.js"></script>

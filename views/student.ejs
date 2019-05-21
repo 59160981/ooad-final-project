@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
 
-    <title>เพิ่มผู้คุมสอบ</title>
+    <title>ดูตารางสอบ</title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -46,82 +46,16 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="/home/term">
+                <a class="nav-link" href="/home/term"  style="background-color: rgb(153, 153, 150)">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="/img/icon2.png" width="15" height="15" class="logo" alt="">
-                    <span>จัดการปีการศึกษา</span></a>
+                    <span>ดูตารางสอบ</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item">
-                <a class="nav-link" href="/home/course" >
-                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <img src="/img/icon1.png" width="15" height="15" class="logo" alt="">
-                    <span>จัดการคอร์สเรียน</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/home/subject">
-                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <img src="/img/icon1.png" width="15" height="15" class="logo" alt="">
-                    <span>จัดการรายวิชาที่เปิดสอน</span></a>
-            </li>
-
-            
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/home/room">
-                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <img src="/img/icon6.png" width="15" height="15" class="logo" alt="">
-                    <span>จัดการห้อง</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/home/build">
-                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <img src="/img/icon6.png" width="15" height="15" class="logo" alt="">
-                    <span>จัดการตึก</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/home/users">
-                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <img src="/img/icon7.png" width="15" height="15" class="logo" alt="">
-                    <span>จัดการผู้ใช้</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/home/exam" style="background-color: rgb(153, 153, 150)">
-                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <img src="/img/icon8.png" width="15" height="15" class="logo" alt="">
-                    <span>จัดการการสอบ</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/home/examiner" >
-                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <img src="/img/icon9.png" width="15" height="15" class="logo" alt="">
-                    <span>ผู้คุมสอบ</span></a>
-            </li>
         </ul>
-
+ 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -179,105 +113,98 @@
                 <!-- test table -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">รายชื่อผู้คุมสอบ</h6>
-                        <button style="margin-left: 80%" class="btn btn-success" onclick="location.href='/home/exam/show/<%= course._id %>'">กลับ</button>
+                        <h6 class="m-0 font-weight-bold text-primary">รายชื่อผู้ใช้</h6>
+                        <button class="button is-success" style="margin-left: 81%; color: white;"
+                            onclick="location.href='/home/users/create'">เพิ่มข้อมูลผู้ใช้</button>
+
                     </div>
-                    
                     <div class="card-body">
                         <div class="table-responsive">
-                            <form action="/home/exam/addExaminer" method="post">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center;">รหัสผู้คุมสอบ</th>
-                                            <th style="text-align: center;">ชื่อ - นามสกุล</th>
-                                            <th style="text-align: center;">สถานะ</th>
-                                            <th style="text-align: center;">หมายเหตุ</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th style="text-align: center;">รหัสผู้คุมสอบ</th>
-                                            <th style="text-align: center;">ชื่อ - นามสกุล</th>
-                                            <th style="text-align: center;">สถานะ</th>
-                                            <th style="text-align: center;">หมายเหตุ</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <% for(var i=0; i < user.length; i++) { %>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <%= user[i].username %>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <%= user[i].firstName %>
-                                                <%= user[i].lastName %>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <%= user[i].type %>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <button type="submit" name="addUser" value="<%= user[i]._id %>"
-                                                    class="btn btn-success">เลือก</button>
-                                            </td>
-                                        </tr>
-                                        <% } %>
-                                    </tbody>
-                                </table>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">รายชื่ออาจารย์ในรายวิชา</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <form action="/home/exam/deleteExaminer" method="post">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;">รหัสอาจารย์</th>
-                                        <th style="text-align: center;">ชื่อ - นามสกุล</th>
-                                        <th style="text-align: center;">สถานะ</th>
-                                        <th style="text-align: center;">หมายเหตุ</th>
+                                        <th style="text-align: center;">รหัสวิชา</th>
+                                        <th style="text-align: center;">ชื่อวิชา</th>
+                                        <th style="text-align: center;">กลุ่ม</th>
+                                        <th style="text-align: center;">สอบกลางภาค</th>
+                                        <th style="text-align: center;">สอบปลายภาค</th>
+                                        <th style="text-align: center;">สอบอื่นๆ</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th style="text-align: center;">รหัสอาจารย์</th>
-                                        <th style="text-align: center;">ชื่อ - นามสกุล</th>
-                                        <th style="text-align: center;">สถานะ</th>
-                                        <th style="text-align: center;">หมายเหตุ</th>
+                                        <th style="text-align: center;">รหัสวิชา</th>
+                                        <th style="text-align: center;">ชื่อวิชา</th>
+                                        <th style="text-align: center;">กลุ่ม</th>
+                                        <th style="text-align: center;">สอบกลางภาค</th>
+                                        <th style="text-align: center;">สอบปลายภาค</th>
+                                        <th style="text-align: center;">สอบอื่นๆ</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <% for(var i=0; i < userInCoruse.length; i++) { %>
+                                    <% for(var i=0; i < course.length; i++) { %>
                                     <tr>
                                         <td style="text-align: center;">
-                                            <%= userInCoruse[i].username %>
+                                            <%= course[i].subject_id %>
                                         </td>
                                         <td style="text-align: center;">
-                                            <%= userInCoruse[i].firstName %>
-                                            <%= userInCoruse[i].lastName %>
+                                            <%= course[i].subject_EngName %><br>
+                                            <%= course[i].subject_ThName %>
                                         </td>
                                         <td style="text-align: center;">
-                                            <%= userInCoruse[i].type %>
+                                            <%= course[i].group %>
                                         </td>
                                         <td style="text-align: center;">
-                                            <button type="submit" name="deleteUser" value="<%= userInCoruse[i]._id %>"
-                                                class="btn btn-danger">ลบ</button>
+                                            <% for(var j=0; j < course[i].exam.length ; j++) { %>
+                                                <% if(course[i].exam[j].type == "สอบกลางภาค")  { %>
+                                                    <% var mid = 1 %>
+                                                    <% var a = i %>
+                                                    <% var b = j %>
+                                                <% } %>
+                                            <% } %>
+                                            <% if(mid == 1)  { %>
+                                                <%= course[a].exam[b].date %>
+                                            <% }else{ %>
+                                                ไม่มีข้อมูล
+                                            <% } %>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <% for(var j=0; j < course[i].exam.length ; j++) { %>
+                                                <% if(course[i].exam[j].type == "สอบปลายภาค")  { %>
+                                                    <% var final = 1 %>
+                                                    <% var a = i %>
+                                                    <% var b = j %>
+                                                <% } %>
+                                            <% } %>
+                                            <% if(final == 1)  { %>
+                                                <%= course[a].exam[b].date %>
+                                            <% }else{ %>
+                                                ไม่มีข้อมูล 
+                                            <% } %>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <% for(var j=0; j < course[i].exam.length ; j++) { %>
+                                                <% if(course[i].exam[j].type == "อื่นๆ")  { %>
+                                                    <% var orther = 1 %>
+                                                    <% var a = i %>
+                                                    <% var b = j %>
+                                                <% } %>
+                                            <% } %>
+                                            <% if(orther == 1)  { %>
+                                                <%= course[a].exam[b].date %>
+                                            <% }else{ %>
+                                                ไม่มีข้อมูล
+                                            <% } %>
                                         </td>
                                     </tr>
                                     <% } %>
                                 </tbody>
                             </table>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
         <!-- /.container-fluid -->
 
@@ -334,7 +261,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
-    <script src="/js/myScript/checkAddCourse.js"></script>
 
     <!-- Page level plugins -->
     <script src="/vendor/datatables/jquery.dataTables.min.js"></script>

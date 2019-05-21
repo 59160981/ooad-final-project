@@ -14,7 +14,14 @@ Router.route("/login").post(function (req, res) {
     User.findOne({ username: username, password: password }, function (err, user) {
         if (user) {
             userLogin = user._id
-            res.redirect('/home/index')
+            User.findById(userLogin, function (err, user) {
+                userLoginDetail = user.firstName + " " + user.lastName
+            })
+            if (user.type == "นิสิต") {
+                res.redirect('/home/student')
+            } else {
+                res.redirect('/home/index')
+            }
         } else {
             res.render("login", { err: true })
         }
@@ -26,7 +33,6 @@ Router.route('/index').get(function (req, res) {
         res.redirect('/home')
     } else {
         User.findById(userLogin, function (err, user) {
-            userLoginDetail = user.firstName + " " + user.lastName
             Term.findOne(function (err, term) {
                 res.render('index', { login: userLoginDetail, user: user, term: term })
             })

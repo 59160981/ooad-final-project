@@ -38,9 +38,6 @@ Router.route('/').post(function (req, res) {
                                     subject_EngName: subject.subject_EngName,
                                     subject_ThName: subject.subject_ThName,
                                     subject_credit: subject.subject_credit,
-                                    subject_teacher: [],
-                                    subject_student: [],
-                                    exam:[{}]
                                 })
                                 Data.save()
                             }
@@ -54,12 +51,8 @@ Router.route('/').post(function (req, res) {
                                     subject_EngName: subject.subject_EngName,
                                     subject_ThName: subject.subject_ThName,
                                     subject_credit: subject.subject_credit,
-                                    subject_teacher: [],
-                                    subject_student: [],
-                                    exam:[{}]
                                 })
                                 Data.save()
-                                console.log(Data)
                             }
                         }
                     })

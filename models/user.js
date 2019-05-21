@@ -7,7 +7,8 @@ const User = new Schema({
   firstName: { type: String },
   lastName: { type: String },
   type: { type: String },
-  subject: [{ type: String }]
+  subject: [{ type: String }],
+  examiner: [{ type: String }]
 },
   {
     collection: 'users'

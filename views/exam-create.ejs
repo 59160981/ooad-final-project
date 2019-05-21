@@ -115,7 +115,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="/home/examiner">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="/img/icon9.png" width="15" height="15" class="logo" alt="">
                     <span>ผู้คุมสอบ</span></a>
@@ -234,7 +234,7 @@
                                 </p>
                                 <p>
                                     <div class="select">
-                                        <select name="type">
+                                        <select name="type" required>
                                             <option value="" hidden>เลือก....</option>
                                             <option value="สอบกลางภาค">สอบกลางภาค</option>
                                             <option value="สอบปลายภาค">สอบปลายภาค</option>
@@ -244,13 +244,13 @@
                                 </p>
 
                                 <p class="control">
-                                    <input name="date" class="input" type="date" placeholder="" style="width:50%">
+                                    <input name="date" class="input" type="date" placeholder="" style="width:50%" required> 
                                     <span id="txtFirstName" style="color: red"></span>
                                 </p>
 
                                 <p class="control">
                                     <div class="select">
-                                        <select name="timein">
+                                        <select name="timein" required>
                                             <option value="" hidden>เลือก....</option>
                                             <option value="08.00">08.00</option>
                                             <option value="09.00">09.00</option>
@@ -271,7 +271,7 @@
 
                                 <p class="control">
                                     <div class="select">
-                                        <select name="timeout">
+                                        <select name="timeout" required>
                                             <option value="" hidden>เลือก....</option>
                                             <option value="08.00">08.00</option>
                                             <option value="09.00">09.00</option>
@@ -292,7 +292,7 @@
 
                                 <p class="control">
                                     <div class="select">
-                                        <select name="room">
+                                        <select name="room" required>
                                             <option value="" hidden>เลือก....</option>
                                             <% for(var i=0; i < room.length; i++) { %>
                                             <% for(var j=0; j < room[i].roomID.length; j++) { %>

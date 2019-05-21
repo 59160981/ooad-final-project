@@ -39,7 +39,6 @@ Router.route('/create').post(function (req, res) {
                     res.render('addBuild', { login: userLoginDetail, err: true, term: term })
                 })
             } else {
-                console.log(DataBuild)
                 DataBuild.save()
                 res.redirect('/home/build')
             }
