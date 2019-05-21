@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
 
-    <title>จัดการการสอบ</title>
+    <title>สร้างการสอบ</title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -177,95 +177,139 @@
                     </div>
                 </div>
                 <!-- test table -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">ตารางการสอบ</h6>
-                        <button class="button is-success" style="margin-left: 77%; color: white;"
-                            onclick="location.href='/home/exam/create'">เพิ่มข้อมูลการสอบ</button>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <p style="margin-top: 0.15vw;">
+                            <label class="label">รหัสวิชา :</label>
+                        </p>
+
+                        <p style="margin-top: 2vw;">
+                            <label class="label">ชื่อรายวิชา :</label>
+                        </p>
+
+                        <p style="margin-top: 2vw;">
+                            <label class="label">กลุ่ม :</label>
+                        </p>
+
+                        <P style="margin-top: 2vw;">
+                            <label class="label">ประเภท :</label>
+                        </P>
+
+                        <P style="margin-top: 2vw;">
+                            <label class="label">วันที่สอบ :</label>
+                        </P>
+
+                        <P style="margin-top: 2vw;">
+                            <label class="label">เวลาเริ่ม :</label>
+                        </P>
+
+                        <P style="margin-top: 2vw;">
+                            <label class="label">สิ้นสุด :</label>
+                        </P>
+                        <P style="margin-top: 2vw;">
+                            <label class="label">ห้อง :</label>
+                        </P>
+
                     </div>
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">รหัสวิชา : <%= course.subject_id %></h6>
-                            </label> <br>
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">ชื้อวิชา : <%= course.subject_ThName %></h6>
-                            </label> <br>
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">กลุ่ม : <%= course.group %></h6>
-                            </label> <br>
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">จำนวนนิสิต :
-                                    <%= course.subject_student.length %></h6>
-                            </label> <br>
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">ปีการศึกษา :
-                                    <%= course.year %>/<%= course.term %></h6>
-                            </label> <br><br>
+                    <div class="field-body">
+                        <div class="field">
+                            <form id="addUser" method="POST" action="/home/exam/create">
+                                <p class="control">
+                                    <input name="" class="input" type="text" placeholder="" style="width:50%"
+                                        value="<%= course.subject_id %>" readonly> <span id="txtUsername"
+                                        style="color: red"></span>
+                                </p>
 
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
+                                <p class="control">
+                                    <input name="" class="input" type="text" placeholder="" style="width:50%"
+                                        value="<%= course.subject_EngName %>" readonly> <span id="txtPassword"
+                                        style="color: red"></span>
+                                </p>
 
-                                        <th style="text-align: center;">ลำดับที่</th>
-                                        <th style="text-align: center;">วันที่สอบ</th>
-                                        <th style="text-align: center;">เวลาเริ่ม-สิ้นสุด</th>
-                                        <th style="text-align: center;">ห้องสอบ</th>
-                                        <th style="text-align: center;">ประเภทการสอบ</th>
-                                        <th style="text-align: center;">ผู้คุมสอบ</th>
-                                        <th style="text-align: center;">จำนวนนิสิต</th>
-                                        <th style="text-align: center;">หมายเหตุ</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th style="text-align: center;">ลำดับที่</th>
-                                        <th style="text-align: center;">วันที่สอบ</th>
-                                        <th style="text-align: center;">เวลาเริ่ม-สิ้นสุด</th>
-                                        <th style="text-align: center;">ห้องสอบ</th>
-                                        <th style="text-align: center;">ประเภทการสอบ</th>
-                                        <th style="text-align: center;">ผู้คุมสอบ</th>
-                                        <th style="text-align: center;">จำนวนนิสิต</th>
-                                        <th style="text-align: center;">หมายเหตุ</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <% for(var i=0; i < course.exam.length; i++) { %>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <%= i+1 %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].date %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].timein %> - <%= course.exam[i].timeout %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].room %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].type %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[0].examiner.length %><br>
-                                            <a href="/home/exam/addExaminer"
-                                                class="btn btn-primary">จัดการผู้คุมสอบ</a>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[0].student.length %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="" class="btn btn-danger">ลบ</a>
-                                        </td>
-                                    </tr>
-                                    <% } %>
-                                </tbody>
-                            </table>
+                                <p class="control">
+                                    <input name="" class="input" type="text" placeholder="" style="width:50%"
+                                        value="<%= course.group %>" readonly> <span id="txtPassword"
+                                        style="color: red"></span>
+                                </p>
+                                <p>
+                                    <div class="select">
+                                        <select name="type">
+                                            <option value="" hidden>เลือก....</option>
+                                            <option value="กลางภาค">กลางภาค</option>
+                                            <option value="ปลายภาค">ปลายภาค</option>
+                                            <option value="อื่นๆ">อื่นๆ</option>
+                                        </select>
+                                    </div> <span id="txtType" style="color: red"></span>
+                                </p>
+
+                                <p class="control">
+                                    <input name="date" class="input" type="date" placeholder="" style="width:50%">
+                                    <span id="txtFirstName" style="color: red"></span>
+                                </p>
+
+                                <p class="control">
+                                    <div class="select">
+                                        <select name="timein">
+                                            <option value="" hidden>เลือก....</option>
+                                            <option value="08.00">08.00</option>
+                                            <option value="09.00">09.00</option>
+                                            <option value="10.00">10.00</option>
+                                            <option value="11.00">11.00</option>
+                                            <option value="12.00">12.00</option>
+                                            <option value="13.00">13.00</option>
+                                            <option value="14.00">14.00</option>
+                                            <option value="15.00">15.00</option>
+                                            <option value="16.00">16.00</option>
+                                            <option value="17.00">17.00</option>
+                                            <option value="18.00">18.00</option>
+                                            <option value="19.00">19.00</option>
+                                            <option value="20.00">20.00</option>
+                                        </select>
+                                    </div> <span id="txtType" style="color: red"></span>
+                                </p>
+
+                                <p class="control">
+                                    <div class="select">
+                                        <select name="timeout">
+                                            <option value="" hidden>เลือก....</option>
+                                            <option value="08.00">08.00</option>
+                                            <option value="09.00">09.00</option>
+                                            <option value="10.00">10.00</option>
+                                            <option value="11.00">11.00</option>
+                                            <option value="12.00">12.00</option>
+                                            <option value="13.00">13.00</option>
+                                            <option value="14.00">14.00</option>
+                                            <option value="15.00">15.00</option>
+                                            <option value="16.00">16.00</option>
+                                            <option value="17.00">17.00</option>
+                                            <option value="18.00">18.00</option>
+                                            <option value="19.00">19.00</option>
+                                            <option value="20.00">20.00</option>
+                                        </select>
+                                    </div> <span id="txtType" style="color: red"></span>
+                                </p>
+
+                                <p class="control">
+                                    <div class="select">
+                                        <select name="room">
+                                            <option value="" hidden>เลือก....</option>
+                                            <% for(var i=0; i < room.length; i++) { %>
+                                            <option value="<%= room[i].roomID %>"><%= room[i].roomID %></option>
+                                            <% } %>
+                                        </select>
+                                    </div> <span id="txtType" style="color: red"></span>
+                                </p>
+                                <span id="alertUser" style="color: red"><% if(err){ %>ไม่สามารถเพิ่มผู้ใช้ได้เนื่องจาก
+                                    username ซ้ำ<% } %></span>
+
+                                <p>
+                                    <button type="submit" onclick="checkValue()" class="button is-success"
+                                        style="margin-top: 1.5vw; margin-left: 26.5vw; color: white;">เพิ่มการสอบ</button>
+                                </p>
+                            </form>
                         </div>
                     </div>
-
                 </div>
             </div>
 

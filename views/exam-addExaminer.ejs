@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
 
-    <title>จัดการการสอบ</title>
+    <title>เพิ่มผู้คุมสอบ</title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -55,7 +55,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="/home/course">
+                <a class="nav-link" href="/home/course" style="background-color: rgb(153, 153, 150)">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="/img/icon1.png" width="15" height="15" class="logo" alt="">
                     <span>จัดการคอร์สเรียน</span></a>
@@ -71,7 +71,7 @@
                     <span>จัดการรายวิชาที่เปิดสอน</span></a>
             </li>
 
-
+            
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
@@ -105,7 +105,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="/home/exam" style="background-color: rgb(153, 153, 150)">
+                <a class="nav-link" href="/home/exam">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="/img/icon8.png" width="15" height="15" class="logo" alt="">
                     <span>จัดการการสอบ</span></a>
@@ -179,96 +179,104 @@
                 <!-- test table -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">ตารางการสอบ</h6>
-                        <button class="button is-success" style="margin-left: 77%; color: white;"
-                            onclick="location.href='/home/exam/create'">เพิ่มข้อมูลการสอบ</button>
+                        <h6 class="m-0 font-weight-bold text-primary">รายชื่อผู้คุมสอบ</h6>
                     </div>
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">รหัสวิชา : <%= course.subject_id %></h6>
-                            </label> <br>
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">ชื้อวิชา : <%= course.subject_ThName %></h6>
-                            </label> <br>
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">กลุ่ม : <%= course.group %></h6>
-                            </label> <br>
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">จำนวนนิสิต :
-                                    <%= course.subject_student.length %></h6>
-                            </label> <br>
-                            <label>
-                                <h6 class="m-0 font-weight-bold text-dark">ปีการศึกษา :
-                                    <%= course.year %>/<%= course.term %></h6>
-                            </label> <br><br>
-
+                            <form action="/home/exam/addExaminer" method="post">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">รหัสผู้คุมสอบ</th>
+                                            <th style="text-align: center;">ชื่อ - นามสกุล</th>
+                                            <th style="text-align: center;">สถานะ</th>
+                                            <th style="text-align: center;">หมายเหตุ</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="text-align: center;">รหัสผู้คุมสอบ</th>
+                                            <th style="text-align: center;">ชื่อ - นามสกุล</th>
+                                            <th style="text-align: center;">สถานะ</th>
+                                            <th style="text-align: center;">หมายเหตุ</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <% for(var i=0; i < user.length; i++) { %>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <%= user[i].username %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <%= user[i].firstName %>
+                                                <%= user[i].lastName %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <%= user[i].type %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <button type="submit" name="addUser" value="<%= user[i]._id %>"
+                                                    class="btn btn-success">เลือก</button>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">รายชื่ออาจารย์ในรายวิชา</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form action="/home/course/deleteTeacher" method="post">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-
-                                        <th style="text-align: center;">ลำดับที่</th>
-                                        <th style="text-align: center;">วันที่สอบ</th>
-                                        <th style="text-align: center;">เวลาเริ่ม-สิ้นสุด</th>
-                                        <th style="text-align: center;">ห้องสอบ</th>
-                                        <th style="text-align: center;">ประเภทการสอบ</th>
-                                        <th style="text-align: center;">ผู้คุมสอบ</th>
-                                        <th style="text-align: center;">จำนวนนิสิต</th>
+                                        <th style="text-align: center;">รหัสอาจารย์</th>
+                                        <th style="text-align: center;">ชื่อ - นามสกุล</th>
+                                        <th style="text-align: center;">สถานะ</th>
                                         <th style="text-align: center;">หมายเหตุ</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th style="text-align: center;">ลำดับที่</th>
-                                        <th style="text-align: center;">วันที่สอบ</th>
-                                        <th style="text-align: center;">เวลาเริ่ม-สิ้นสุด</th>
-                                        <th style="text-align: center;">ห้องสอบ</th>
-                                        <th style="text-align: center;">ประเภทการสอบ</th>
-                                        <th style="text-align: center;">ผู้คุมสอบ</th>
-                                        <th style="text-align: center;">จำนวนนิสิต</th>
+                                        <th style="text-align: center;">รหัสอาจารย์</th>
+                                        <th style="text-align: center;">ชื่อ - นามสกุล</th>
+                                        <th style="text-align: center;">สถานะ</th>
                                         <th style="text-align: center;">หมายเหตุ</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <% for(var i=0; i < course.exam.length; i++) { %>
+                                    <% for(var i=0; i < userInCoruse.length; i++) { %>
                                     <tr>
                                         <td style="text-align: center;">
-                                            <%= i+1 %>
+                                            <%= userInCoruse[i].username %>
                                         </td>
                                         <td style="text-align: center;">
-                                            <%= course.exam[i].date %>
+                                            <%= userInCoruse[i].firstName %>
+                                            <%= userInCoruse[i].lastName %>
                                         </td>
                                         <td style="text-align: center;">
-                                            <%= course.exam[i].timein %> - <%= course.exam[i].timeout %>
+                                            <%= userInCoruse[i].type %>
                                         </td>
                                         <td style="text-align: center;">
-                                            <%= course.exam[i].room %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].type %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[0].examiner.length %><br>
-                                            <a href="/home/exam/addExaminer"
-                                                class="btn btn-primary">จัดการผู้คุมสอบ</a>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[0].student.length %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="" class="btn btn-danger">ลบ</a>
+                                            <button type="submit" name="deleteUser" value="<%= userInCoruse[i]._id %>"
+                                                class="btn btn-danger">ลบ</button>
                                         </td>
                                     </tr>
                                     <% } %>
                                 </tbody>
                             </table>
-                        </div>
+                        </form>
                     </div>
-
                 </div>
             </div>
-
         </div>
         <!-- /.container-fluid -->
 

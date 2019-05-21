@@ -46,7 +46,8 @@ Router.route('/').post(function (req, res) {
                                         timein: "",
                                         timeout: "",
                                         date: "",
-                                        examiner: []
+                                        examiner: [],
+                                        student:[]
                                     }]
                                 })
                                 Data.save()
@@ -69,7 +70,8 @@ Router.route('/').post(function (req, res) {
                                         timein: "",
                                         timeout: "",
                                         date: "",
-                                        examiner: []
+                                        examiner: [],
+                                        student: []
                                     }]
                                 })
                                 Data.save()
@@ -124,10 +126,7 @@ Router.route('/addStudent').post(function (req, res) {
     } else {
         const userid = req.body.addUser
         Course.findById(courseID, function (err, course) {
-            console.log(course)
             Course.findOne({ subject_student: userid, subject_id: course.subject_id, year: course.year, term: course.term }, function (err, userInCoruse) {
-                console.log(userInCoruse)
-
                 if (!userInCoruse) {
                     User.findById(userid, function (err, user) {
                         user.subject.push(courseID)
