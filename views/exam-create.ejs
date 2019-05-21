@@ -236,8 +236,8 @@
                                     <div class="select">
                                         <select name="type">
                                             <option value="" hidden>เลือก....</option>
-                                            <option value="กลางภาค">กลางภาค</option>
-                                            <option value="ปลายภาค">ปลายภาค</option>
+                                            <option value="สอบกลางภาค">สอบกลางภาค</option>
+                                            <option value="สอบปลายภาค">สอบปลายภาค</option>
                                             <option value="อื่นๆ">อื่นๆ</option>
                                         </select>
                                     </div> <span id="txtType" style="color: red"></span>
@@ -295,7 +295,9 @@
                                         <select name="room">
                                             <option value="" hidden>เลือก....</option>
                                             <% for(var i=0; i < room.length; i++) { %>
-                                            <option value="<%= room[i].roomID %>"><%= room[i].roomID %></option>
+                                            <% for(var j=0; j < room[i].roomID.length; j++) { %>
+                                            <option value="<%= room[i].roomID[j] %>"><%= room[i].roomID[j] %></option>
+                                            <% } %>
                                             <% } %>
                                         </select>
                                     </div> <span id="txtType" style="color: red"></span>

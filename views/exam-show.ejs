@@ -203,66 +203,69 @@
                                 <h6 class="m-0 font-weight-bold text-dark">ปีการศึกษา :
                                     <%= course.year %>/<%= course.term %></h6>
                             </label> <br><br>
+                            <form action="/home/exam/delete" method="post">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
 
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-
-                                        <th style="text-align: center;">ลำดับที่</th>
-                                        <th style="text-align: center;">วันที่สอบ</th>
-                                        <th style="text-align: center;">เวลาเริ่ม-สิ้นสุด</th>
-                                        <th style="text-align: center;">ห้องสอบ</th>
-                                        <th style="text-align: center;">ประเภทการสอบ</th>
-                                        <th style="text-align: center;">ผู้คุมสอบ</th>
-                                        <th style="text-align: center;">จำนวนนิสิต</th>
-                                        <th style="text-align: center;">หมายเหตุ</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th style="text-align: center;">ลำดับที่</th>
-                                        <th style="text-align: center;">วันที่สอบ</th>
-                                        <th style="text-align: center;">เวลาเริ่ม-สิ้นสุด</th>
-                                        <th style="text-align: center;">ห้องสอบ</th>
-                                        <th style="text-align: center;">ประเภทการสอบ</th>
-                                        <th style="text-align: center;">ผู้คุมสอบ</th>
-                                        <th style="text-align: center;">จำนวนนิสิต</th>
-                                        <th style="text-align: center;">หมายเหตุ</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <% for(var i=0; i < course.exam.length; i++) { %>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <%= i+1 %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].date %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].timein %> - <%= course.exam[i].timeout %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].room %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[i].type %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[0].examiner.length %><br>
-                                            <a href="/home/exam/addExaminer"
-                                                class="btn btn-primary">จัดการผู้คุมสอบ</a>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <%= course.exam[0].student.length %>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="" class="btn btn-danger">ลบ</a>
-                                        </td>
-                                    </tr>
-                                    <% } %>
-                                </tbody>
-                            </table>
+                                            <th style="text-align: center;">ลำดับที่</th>
+                                            <th style="text-align: center;">วันที่สอบ</th>
+                                            <th style="text-align: center;">เวลาเริ่ม-สิ้นสุด</th>
+                                            <th style="text-align: center;">ห้องสอบ</th>
+                                            <th style="text-align: center;">ประเภทการสอบ</th>
+                                            <th style="text-align: center;">ผู้คุมสอบ</th>
+                                            <th style="text-align: center;">จำนวนนิสิต</th>
+                                            <th style="text-align: center;">หมายเหตุ</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="text-align: center;">ลำดับที่</th>
+                                            <th style="text-align: center;">วันที่สอบ</th>
+                                            <th style="text-align: center;">เวลาเริ่ม-สิ้นสุด</th>
+                                            <th style="text-align: center;">ห้องสอบ</th>
+                                            <th style="text-align: center;">ประเภทการสอบ</th>
+                                            <th style="text-align: center;">ผู้คุมสอบ</th>
+                                            <th style="text-align: center;">จำนวนนิสิต</th>
+                                            <th style="text-align: center;">หมายเหตุ</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <% for(var i=0; i < course.exam.length; i++) { %>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <%= i+1 %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <%= course.exam[i].date %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <%= course.exam[i].timein %> - <%= course.exam[i].timeout %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <%= course.exam[i].room %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <%= course.exam[i].type %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <%= course.exam[i].examiner.length %><br>
+                                                <a href="/home/exam/addExaminer/<%= course.exam[i].type %>"
+                                                    class="btn btn-primary">จัดการผู้คุมสอบ</a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <%= course.exam[i].student.length %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <button type="submit" name="deleteRoom"
+                                                    value="<%= course.exam[i].type %>"
+                                                    class="btn btn-danger">ยกเลิกการสอบ</button>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                     </div>
 

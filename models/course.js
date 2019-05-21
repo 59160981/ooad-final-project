@@ -11,7 +11,15 @@ const Course = new Schema({
     subject_credit: { type: String },
     subject_teacher: [{ type: String }],
     subject_student: [{ type: String }],
-    exam: [{}]
+    exam: [{
+        type: { type: String },
+        date: { type: String },
+        timein: { type: String },
+        timeout: { type: String },
+        room: { type: String },
+        examiner: [{ type: String }],
+        student: [{ type: String }]
+    }]
 }, {
         collection: 'course'
     })

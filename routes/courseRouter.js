@@ -40,15 +40,7 @@ Router.route('/').post(function (req, res) {
                                     subject_credit: subject.subject_credit,
                                     subject_teacher: [],
                                     subject_student: [],
-                                    exam:[{
-                                        type: "",
-                                        room: "",
-                                        timein: "",
-                                        timeout: "",
-                                        date: "",
-                                        examiner: [],
-                                        student:[]
-                                    }]
+                                    exam:[{}]
                                 })
                                 Data.save()
                             }
@@ -64,17 +56,10 @@ Router.route('/').post(function (req, res) {
                                     subject_credit: subject.subject_credit,
                                     subject_teacher: [],
                                     subject_student: [],
-                                    exam:[{
-                                        type: "",
-                                        room: "",
-                                        timein: "",
-                                        timeout: "",
-                                        date: "",
-                                        examiner: [],
-                                        student: []
-                                    }]
+                                    exam:[{}]
                                 })
                                 Data.save()
+                                console.log(Data)
                             }
                         }
                     })

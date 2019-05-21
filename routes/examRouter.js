@@ -59,7 +59,7 @@ Router.route('/create').post(function (req, res) {
                     timeout: req.body.timeout,
                     room: req.body.room,
                     examiner: [],
-                    student: [course.subject_student]
+                    student: course.subject_student
                 })
                 course.save()
                 res.render('exam-show', { login: userLoginDetail, term: term, course: course, err: false })
@@ -68,21 +68,53 @@ Router.route('/create').post(function (req, res) {
     }
 })
 
-
-Router.route('/addExaminer').get(function (req, res) {
+Router.route('/delete').post(function (req, res) {
     if (userLogin == "") {
         res.redirect('/home')
     } else {
-        var examiner = []
+        const type = req.body.deleteRoom
         Term.findOne(function (err, term) {
             Course.findById(courseID, function (err, course) {
+                for (let i = 0; i < course.exam.length; i++) {
+                    if (course.exam[i].type == roomID) {
+                        course.exam.splice(i, 1)
+                        course.save()
+                    }
+                }
+                res.render('exam-show', { login: userLoginDetail, term: term, course: course, err: false })
+            })
+        })
+    }
+})
+
+type=""
+index = 0
+Router.route('/addExaminer/:type').get(function (req, res) {
+    if (userLogin == "") {
+        res.redirect('/home')
+    } else {
+        type = req.params.type
+        var examiner = []
+        var examinerInCourse = []
+        Term.findOne(function (err, term) {
+            Course.findById(courseID, function (err, course) {
+                for (let i = 0; i < course.exam.length; i++) {
+                    if (course.exam[i].type == type) {
+                        index = i
+                    }
+                }
+                for (let i = 0; i < course.exam[index].examiner.length; i++) {
+                    User.findById(course.exam[index].examiner[i], function (err, userInCoruse) {
+                        examinerInCourse.push(userInCoruse)
+                    })
+                }
                 User.find(function (err, user) {
                     for (const i in user) {
                         if (user[i].type != "นิสิต") {
                             examiner.push(user[i])
                         }
                     }
-                    res.render('exam-addExaminer', { login: userLoginDetail, term: term, course: course, err: false, user: examiner, userInCoruse: [] })
+                    res.render('exam-addExaminer', { login: userLoginDetail, term: term, course: course, err: false, user: examiner, userInCoruse: examinerInCourse })
                 })
             })
         })
@@ -93,26 +125,38 @@ Router.route('/addExaminer').post(function (req, res) {
     if (userLogin == "") {
         res.redirect('/home')
     } else {
-        var examiner = []
         var addUser = req.body.addUser
-        Term.findOne(function (err, term) {
-            Course.findById(courseID, function (err, course) {
-                course.exam[0].examiner.push(addUser)
-                console.log(course.exam[0].examiner)
+        var sum = 0
+        Course.findById(courseID, function (err, course) {
+            for (let i = 0; i < course.exam[index].examiner.length; i++) {
+                if (addUser == course.exam[index].examiner[i]) {
+                    sum++
+                    console.log(course.exam[index])
+                }
+            }
+            if (sum == 0) {
+                course.exam[index].examiner.push(addUser)
                 course.save()
-                User.find(function (err, user) {
-                    for (const i in user) {
-                        if (user[i].type != "นิสิต") {
-                            examiner.push(user[i])
-                        }
-                    }
-                    User.find({ _id: course.exam[0].examiner }, function (err, userInCoruse) {
-                        res.render('exam-addExaminer', { login: userLoginDetail, term: term, course: course, err: false, user: examiner, userInCoruse: userInCoruse })
-                    })
-                })
-            })
+            }
         })
+        res.redirect('addExaminer/${type}')
     }
 })
 
+Router.route('/deleteExaminer').post(function (req, res) {
+    if (userLogin == "") {
+        res.redirect('/home')
+    } else {
+        const userid = req.body.deleteUser
+        Course.findById(courseID, function (err, course) {
+            for (let i = 0; i < course.exam[index].examiner.length; i++) {
+                if (course.exam[index].examiner[i] == userid) {
+                    course.exam[index].examiner.splice(i, 1)
+                }
+            }
+            course.save()
+            res.redirect('addExaminer/${type}')
+        })
+    }
+})
 module.exports = Router
