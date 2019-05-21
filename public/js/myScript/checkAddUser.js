@@ -14,7 +14,7 @@ function checkValue() {
     // checkNull
     if (username == "") {
         document.getElementById("txtUsername").innerHTML = "* กรุณากรอกข้อมูล";
-    }else if(username.length != 6){
+    }else if(username.length < 6){
         document.getElementById("txtUsername").innerHTML = "* username ต้องมีความยาวอย่างน้อย 6 ตัวอักษร";
     }else{
         document.getElementById("txtUsername").innerHTML = "";

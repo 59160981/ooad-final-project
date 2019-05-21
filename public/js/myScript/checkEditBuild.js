@@ -11,11 +11,11 @@ function checkValue() {
         document.getElementById("txtbuildID").innerHTML = "";
         correct++;
     }
-
+ 
     if (buildName == "") {
         document.getElementById("txtbuildName").innerHTML = "* กรุณากรอกข้อมูล";
     }else{
-        document.getElementById("txtbuildID").innerHTML = "";
+        document.getElementById("txtbuildName").innerHTML = "";
         correct++;
     }
 
